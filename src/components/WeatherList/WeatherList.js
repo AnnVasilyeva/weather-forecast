@@ -1,60 +1,66 @@
 import React, { useState } from 'react';
 import './weatherList.css';
+import PropTypes from 'prop-types';
 import WeatherCard from '../WeatherCard/WeatherCard';
-import ApiBase from '../../service/Api';
+import Api from '../../service/Api';
 import ErrorMessage from '../ErrorMessage/ErrorMessage';
 
+export default function WeatherList({ forecastList, errorMes, isDay }) {
+  const [selectedIndex, setSelectedIndex] = useState(0);
+  const apiBase = new Api();
 
-export default function WeatherList ({forecastList, errorMes, isDay}) {
+  const itemTransform = (item) => {
+    const date = apiBase.getDay(item.dt);
+    const temp = Math.floor(item.temp.day);
+    const icon = `http://openweathermap.org/img/wn/${item.weather[0].icon}@2x.png`;
 
-    const [selectedIndex, setSelectedIndex] = useState(0);
-    const apiBase = new ApiBase();
-    
+    return {
+      date,
+      temp,
+      icon,
+    };
+  };
 
-    const itemTransform = (item) => {
-        
-        const date = apiBase.getDay(item.dt);
-        const temp = Math.floor(item.temp.day);
-        const icon = `http://openweathermap.org/img/wn/${item.weather[0].icon}@2x.png`;
-        
-        return {
-            date: date,
-            temp: temp,
-            icon: icon
-        }
-    }
+  const changeItemNumPrev = () => {
+    selectedIndex === 0 ? setSelectedIndex(selectedIndex) : setSelectedIndex(selectedIndex - 1);
+  };
 
-    const changeItemNumPrev = () => {
-        selectedIndex === 0 ? setSelectedIndex(selectedIndex) : setSelectedIndex(selectedIndex - 1)
-        
-    }
+  const changeItemNumNext = () => {
+    selectedIndex === forecastList.slice(selectedIndex, selectedIndex + 3).length + 1 ? setSelectedIndex(selectedIndex) : setSelectedIndex(selectedIndex + 1);
+  };
 
-    const changeItemNumNext = () => {  
-        selectedIndex === forecastList.slice(selectedIndex, selectedIndex + 3).length + 1 ? setSelectedIndex(selectedIndex) : setSelectedIndex(selectedIndex + 1)
-    }
+  const itemDay = forecastList.map((item) => <WeatherCard key={item.dt} item={item} isDay={isDay} />);
 
-    const itemDay = forecastList.map((item) => {
-        return <WeatherCard key={item.dt} item={item} isDay={isDay}/>
-    });
-    
-    const items = forecastList.slice(selectedIndex, selectedIndex + 3).map((item) => {
-        const newItem = itemTransform(item);
-        return <WeatherCard key={item.dt} item={newItem} isDay={isDay}/>
-    });
+  const items = forecastList.slice(selectedIndex, selectedIndex + 3).map((item) => {
+    const newItem = itemTransform(item);
+    return <WeatherCard key={item.dt} item={newItem} isDay={isDay} />;
+  });
 
-    return (
-        <div className='forecast-week-list-wrapper'>
-            {errorMes ? <ErrorMessage errorMes={errorMes}/> : 
-                <>   
-                    <button type='button' className='forecast-week-list-btn prev_btn' onClick={() => changeItemNumPrev()}></button>
-                    <ul className='forecast-week-list'>
-                        {isDay ? itemDay : items}
-                    </ul>
-                    <button type='button' className='forecast-week-list-btn next_btn' onClick={() => changeItemNumNext()}></button>
-                </>
-            }
-            
-        </div>
-    )
+  return (
+    <div className="forecast-week-list-wrapper">
+      {errorMes ? <ErrorMessage errorMes={errorMes} />
+        : (
+          <>
+            <button type="button" aria-label="Back" className="forecast-week-list-btn prev_btn" onClick={() => changeItemNumPrev()} />
+            <ul className="forecast-week-list">
+              {isDay ? itemDay : items}
+            </ul>
+            <button type="button" aria-label="Next" className="forecast-week-list-btn next_btn" onClick={() => changeItemNumNext()} />
+          </>
+        )}
 
+    </div>
+  );
 }
+
+WeatherList.propTypes = {
+  forecastList: PropTypes.array,
+  errorMes: PropTypes.string,
+  isDay: PropTypes.bool,
+};
+
+WeatherList.defaultProps = {
+  forecastList: [],
+  errorMes: 'Error',
+  isDay: false,
+};

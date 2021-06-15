@@ -1,0 +1,60 @@
+{
+    "env": {
+        "browser": true,
+        "es2021": true
+    },
+    "extends": [
+        "airbnb"
+    ],
+    "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": true
+        },
+        "ecmaVersion": 12,
+        "sourceType": "module"
+    },
+    "plugins": [
+        "react",
+        "jsx-a11y"
+    ],
+    "rules": {
+     "no-plusplus": "off",
+     "no-console": "off",
+     "no-restricted-syntax": [
+         "error",
+         "LabeledStatement",
+         "WithStatement"
+     ], 
+     "no-mixed-operators": [
+         "error",
+         {
+             "groups": [
+                 ["+", "*", "/", "%"],
+                 ["&", "|", "^", "~", "<<", ">>", ">>>"],
+                 ["==", "!=", "===", "!==", ">", ">=", "<", "<="],
+                 ["&&", "||"],
+                 ["in", "instanceof"]
+             ],
+             "allowSamePrecedence": true
+         }
+     ],
+        "max-len": [
+            "error",
+            { "code": 200 }
+        ],
+        "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+        "jsx-a11y/no-noninteractive-element-interactions": [
+            "error",
+            {
+              "handlers": [
+                "onClick",
+                "onMouseDown",
+                "onMouseUp",
+                "onKeyPress",
+                "onKeyDown",
+                "onKeyUp"
+              ]
+            }
+          ]
+    }
+}

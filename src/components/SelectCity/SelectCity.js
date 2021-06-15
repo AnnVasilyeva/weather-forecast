@@ -1,64 +1,77 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import './selectCity.css';
-import ApiBase from '../../service/Api';
+import PropTypes from 'prop-types';
+import Api from '../../service/Api';
 import CityItem from '../CityItem/CityItem';
 
-export default function SelectCity ({weekSelected, weekForecast, citySelected, errorMessage}) {
-    const apiBase = new ApiBase();
+export default function SelectCity({
+  weekSelected, weekForecast, citySelected, errorMessage,
+}) {
+  const apiBase = new Api();
 
-    const data = apiBase.data;
- 
-    const [inputValue, setInputValue] = useState('');
-    const [listOpen, setListOpen] = useState(false);
+  const { data } = apiBase;
 
-    const onItemClick = (id) => {
-        const selectItem = data.find(item => item.id === id);
+  const [inputValue, setInputValue] = useState('');
+  const [listOpen, setListOpen] = useState(false);
 
-        if(selectItem) {
-            setInputValue(() => selectItem.name);
-            setListOpen(() => false);
-            return apiBase.getWeekWeather(selectItem)
-                        .then(item => weekSelected(item))
-                        .catch((error) => errorMessage(error))
-                        
-        }
+  const onItemClick = (id) => {
+    const selectItem = data.find((item) => item.id === id);
+
+    if (selectItem) {
+      setInputValue(() => selectItem.name);
+      setListOpen(() => false);
+      return apiBase.getWeekWeather(selectItem)
+        .then((item) => weekSelected(item))
+        .catch((error) => errorMessage(error));
     }
+  };
 
-    const getDayForecast = (id) => {
-        const selectItem = data.find(item => item.id === id);
-        
-        if(selectItem) {
-            setInputValue(() => selectItem.name);
-            setListOpen(() => false);
-            citySelected(selectItem);               
-        }
+  const getDayForecast = (id) => {
+    const selectItem = data.find((item) => item.id === id);
 
-
+    if (selectItem) {
+      setInputValue(() => selectItem.name);
+      setListOpen(() => false);
+      citySelected(selectItem);
     }
+  };
 
+  const items = data.map((item) => <CityItem key={item.id} item={item} onClick={weekForecast ? onItemClick : getDayForecast} />);
 
-    const items = data.map((item, index) => {
-        return <CityItem key={index} item={item} onClick={weekForecast ? onItemClick : getDayForecast}/>
-    });
-   
-    return (
-        <div className='select-city-wrapper'>
+  return (
+    <div className="select-city-wrapper">
 
-            <input type='text' 
-                    placeholder='Select city'
-                    autoComplete='off'
-                    className='forecast-select forecast-select-city'    
-                    name='city' 
-                    value={inputValue} 
-                    onClick={() => setListOpen(!listOpen)}
+      <input
+        type="text"
+        placeholder="Select city"
+        autoComplete="off"
+        className="forecast-select forecast-select-city"
+        name="city"
+        value={inputValue}
+        onClick={() => setListOpen(!listOpen)}
+      />
 
-            />
+      {listOpen
+            && (
+            <ul className="select-list select-city-list">
+              {items}
+            </ul>
+            )}
 
-            {listOpen && 
-            <ul className='select-list select-city-list'>
-                {items}
-            </ul>}
-
-        </div>
-    )
+    </div>
+  );
 }
+
+SelectCity.propTypes = {
+  weekSelected: PropTypes.func,
+  weekForecast: PropTypes.func,
+  citySelected: PropTypes.func,
+  errorMessage: PropTypes.func,
+};
+
+SelectCity.defaultProps = {
+  weekSelected: () => {},
+  weekForecast: () => {},
+  citySelected: () => {},
+  errorMessage: () => {},
+};

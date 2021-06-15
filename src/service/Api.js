@@ -1,6 +1,4 @@
-
-
-export default class ApiBase {
+export default class Api {
     constructor () {
         this.data = [
             {
