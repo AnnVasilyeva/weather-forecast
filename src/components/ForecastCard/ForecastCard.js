@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
-import ForecastEmptyMes from './ForecastEmptyMes';
-import SelectCity from './SelectCity';
-import WeatherList from './WeatherList';
-import WeatherCard from './WeatherCard';
-import ForecastForDay from './ForecastForDay';
+import './forecastCard.css';
+import ForecastEmptyMes from '../ForecastEmptyMes/ForecastEmptyMes';
+import SelectCity from '../SelectCity/SelectCity';
+import WeatherList from '../WeatherList/WeatherList';
+import ForecastForDay from '../ForecastForDay/ForecastForDay';
 
 export default function ForecastCard ({weekForecast}) {
 
@@ -33,7 +33,7 @@ export default function ForecastCard ({weekForecast}) {
 
   
   return (
-    <li className='card-list-item'>
+    <section className='card-list-item'>
       <div className='forecast'>
         <h2 className='forecast-title'>{weekForecast ? weekTitle : dayTitle}</h2>
 
@@ -46,6 +46,6 @@ export default function ForecastCard ({weekForecast}) {
         }
 
       </div>
-    </li>
+    </section>
   )
 }

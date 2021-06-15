@@ -1,4 +1,5 @@
 import React from 'react';
+import './selectDay.css';
 
 export default function SelectDay ({daySelected, value}) {
   // не срабатывает max/min у input, хотя формат дат у элемента отображается правильно

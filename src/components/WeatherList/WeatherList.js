@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
-import WeatherCard from './WeatherCard';
-import ApiBase from '../service/Api';
-import ErrorMessage from './ErrorMessage';
+import './weatherList.css';
+import WeatherCard from '../WeatherCard/WeatherCard';
+import ApiBase from '../../service/Api';
+import ErrorMessage from '../ErrorMessage/ErrorMessage';
 
 
 export default function WeatherList ({forecastList, errorMes, isDay}) {
 
-    const [i, setI] = useState(0);
+    const [selectedIndex, setSelectedIndex] = useState(0);
     const apiBase = new ApiBase();
     
 
@@ -23,21 +24,20 @@ export default function WeatherList ({forecastList, errorMes, isDay}) {
         }
     }
 
-
     const changeItemNumPrev = () => {
-        i === 0 ? setI(i) : setI(i - 1)
+        selectedIndex === 0 ? setSelectedIndex(selectedIndex) : setSelectedIndex(selectedIndex - 1)
         
     }
 
     const changeItemNumNext = () => {  
-        i === forecastList.slice(i, i + 3).length + 1 ? setI(i) : setI(i + 1)
+        selectedIndex === forecastList.slice(selectedIndex, selectedIndex + 3).length + 1 ? setSelectedIndex(selectedIndex) : setSelectedIndex(selectedIndex + 1)
     }
 
     const itemDay = forecastList.map((item) => {
         return <WeatherCard key={item.dt} item={item} isDay={isDay}/>
     });
     
-    const items = forecastList.slice(i, i + 3).map((item) => {
+    const items = forecastList.slice(selectedIndex, selectedIndex + 3).map((item) => {
         const newItem = itemTransform(item);
         return <WeatherCard key={item.dt} item={newItem} isDay={isDay}/>
     });
@@ -46,11 +46,11 @@ export default function WeatherList ({forecastList, errorMes, isDay}) {
         <div className='forecast-week-list-wrapper'>
             {errorMes ? <ErrorMessage errorMes={errorMes}/> : 
                 <>   
-                <button type='button' className='forecast-week-list-btn prev_btn' onClick={() => changeItemNumPrev()}></button>
-                <ul className='forecast-week-list'>
-                    {isDay ? itemDay : items}
-                </ul>
-                <button type='button' className='forecast-week-list-btn next_btn' onClick={() => changeItemNumNext()}></button>
+                    <button type='button' className='forecast-week-list-btn prev_btn' onClick={() => changeItemNumPrev()}></button>
+                    <ul className='forecast-week-list'>
+                        {isDay ? itemDay : items}
+                    </ul>
+                    <button type='button' className='forecast-week-list-btn next_btn' onClick={() => changeItemNumNext()}></button>
                 </>
             }
             

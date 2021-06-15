@@ -1,3 +1,4 @@
+import './forecastEmptyMes.css';
 export default function ForecastEmptyMes () {
     return (
         <div className='forecast-empty-wrapper'>

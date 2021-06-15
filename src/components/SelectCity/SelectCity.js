@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
-import ApiBase from '../service/Api';
-import CityItem from './CityItem';
+import './selectCity.css';
+import ApiBase from '../../service/Api';
+import CityItem from '../CityItem/CityItem';
 
 export default function SelectCity ({weekSelected, weekForecast, citySelected, errorMessage}) {
     const apiBase = new ApiBase();

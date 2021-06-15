@@ -1,0 +1,17 @@
+.select-list-item {
+    color: #2C2D76;
+    margin-bottom: 18px;
+    padding: 6px 10px;
+    box-sizing: border-box;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  
+  .select-list-item:not(last-of-type) {
+    margin-bottom: 0;
+  }
+  
+  .select-list-item:hover {
+    background-color: rgba(128, 131, 164, 0.06);
+    margin-right: 16px;
+  }

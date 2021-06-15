@@ -63,15 +63,14 @@ export default class ApiBase {
       return res;
     }
 
-
     getDay = (unix_timestamp) => {
-      const m = ["jan","feb","mar","apr","may","jun","jul","aug","sep","oct","nov","dec"];
+      const monthName = ["jan","feb","mar","apr","may","jun","jul","aug","sep","oct","nov","dec"];
       const date = new Date(unix_timestamp * 1000);
       const day = date.getDate();
       const month = date.getMonth();
       const year = date.getFullYear();
 
-      return `${day > 10 ? day : '0' + day} ${m[month]} ${year}`;   
+      return `${day > 10 ? day : '0' + day} ${monthName[month]} ${year}`;   
   } 
 
 

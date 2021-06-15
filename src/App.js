@@ -1,6 +1,6 @@
 import './App.css';
-import Header from './components/Header';
-import ForecastCard from './components/ForecastCard';
+import Header from './components/Header/Header';
+import ForecastCard from './components/ForecastCard/ForecastCard';
 
 function App() {
 
@@ -10,10 +10,10 @@ function App() {
       <main className='weather-card'>
         <div className='weather-card-wrapper'>
           <Header/>
-          <ul className='card-list'>
+          <div className='card-list'>
             <ForecastCard weekForecast={true}/>
             <ForecastCard weekForecast={false}/>
-          </ul>
+          </div>
           <footer className='footer-copyright'>С любовью от mercury development</footer>
         </div>    
       </main>

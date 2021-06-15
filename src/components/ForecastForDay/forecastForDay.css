@@ -1,0 +1,63 @@
+.forecast-select-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.forecast-select-wrapper div {
+  margin-bottom: 24px;
+}
+
+.forecast-select {
+    -webkit-appearance: none;
+     -moz-appearance: none;
+    appearance: none;
+    background-color: rgba(128, 131, 164, 0.06);
+    border: 2px solid rgba(128, 131, 164, 0.2);
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin: 0;
+    width: 252px;
+    font-family: inherit;
+    font-size: 16px;
+    cursor: pointer;
+    box-sizing: border-box;
+    text-align: left;
+  
+    color: #8083A4;
+    
+    background-image: url(../../image/icon-arrow-down.png);
+    background-repeat: no-repeat;
+    background-position: right 16px center;
+  
+  }
+  
+  .forecast-select.forecast-select-open {
+    background-image: url(../../image/icon-arrow-up.png);
+    border-color: #373AF5;
+  }
+  
+  .forecast-select:hover {
+    border-color: #8083A4;
+  }
+  
+  .forecast-select:focus {
+    border-color: #373AF5;
+  }
+
+@media only screen and (min-width : 768px) {
+    .forecast-select-wrapper {
+        flex-wrap: no-wrap;
+        justify-content: flex-start;
+    }
+
+    .forecast-select-wrapper div {
+        margin-bottom: 0;
+    }
+}
+
+@media only screen and (min-width : 1440px) {
+    .forecast-select-wrapper div {
+        margin-bottom: 0;
+    }
+}

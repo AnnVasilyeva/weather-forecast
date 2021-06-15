@@ -1,0 +1,38 @@
+.weather-card-title {
+    text-align: center;
+    display: block;
+    font-size: 32px;
+    font-weight: bold;
+    color: #fff;
+  
+    margin-left: 27.6vw;
+    margin-top: 32px;
+    margin-bottom: 24px;
+    
+  }
+  
+  .weather-card-title span {
+    display: block;
+  }
+  
+  .weather-card-title-up {
+    text-align: left;
+  }
+
+  @media only screen and (min-width : 768px) {
+    .weather-card-title {
+        font-size: 102px;
+        margin-left: 25vw;
+        margin-top: 60px;
+        margin-bottom: 65px;
+      }
+  }
+
+  @media only screen and (min-width : 1440px) {
+    .weather-card-title {
+        font-size: 102px;
+        margin-left: 27.6vw;
+        margin-top: 65px;
+        margin-bottom: 60px;
+      }
+  }

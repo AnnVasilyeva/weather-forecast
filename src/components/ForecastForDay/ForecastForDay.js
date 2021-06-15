@@ -1,7 +1,8 @@
 import React, {useEffect, useState} from 'react';
-import ApiBase from '../service/Api';
-import SelectCity from './SelectCity';
-import SelectDay from './SelectDay';
+import './forecastForDay.css';
+import ApiBase from '../../service/Api';
+import SelectCity from '../SelectCity/SelectCity';
+import SelectDay from '../SelectDay/SelectDay';
 
 export default function ForecastForDay ({weekForecast, dayForecast, errorMessage}) {
     const apiBase = new ApiBase();

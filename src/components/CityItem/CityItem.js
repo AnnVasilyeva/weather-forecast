@@ -1,4 +1,5 @@
 import React from 'react';
+import './cityItem.css';
 
 export default function CityItem ({item, onClick}) {
     return (
