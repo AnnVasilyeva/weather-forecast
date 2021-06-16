@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './selectCity.css';
 import PropTypes from 'prop-types';
-import Api from '../../service/Api';
+import Api from '../service/Api';
 import CityItem from '../CityItem/CityItem';
 
 export default function SelectCity({
@@ -24,6 +24,7 @@ export default function SelectCity({
         .then((item) => weekSelected(item))
         .catch((error) => errorMessage(error));
     }
+    return false;
   };
 
   const getDayForecast = (id) => {

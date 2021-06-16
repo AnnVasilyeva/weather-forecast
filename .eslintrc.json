@@ -18,6 +18,7 @@
         "jsx-a11y"
     ],
     "rules": {
+    
      "no-plusplus": "off",
      "no-console": "off",
      "no-restricted-syntax": [

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './forecastForDay.css';
 import PropTypes from 'prop-types';
-import Api from '../../service/Api';
+import Api from '../service/Api';
 import SelectCity from '../SelectCity/SelectCity';
 import SelectDay from '../SelectDay/SelectDay';
 

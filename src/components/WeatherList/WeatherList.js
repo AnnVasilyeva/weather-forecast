@@ -2,15 +2,23 @@ import React, { useState } from 'react';
 import './weatherList.css';
 import PropTypes from 'prop-types';
 import WeatherCard from '../WeatherCard/WeatherCard';
-import Api from '../../service/Api';
 import ErrorMessage from '../ErrorMessage/ErrorMessage';
 
 export default function WeatherList({ forecastList, errorMes, isDay }) {
   const [selectedIndex, setSelectedIndex] = useState(0);
-  const apiBase = new Api();
+
+  const getDay = (unixTimestamp) => {
+    const monthName = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'];
+    const date = new Date(unixTimestamp * 1000);
+    const day = date.getDate();
+    const month = date.getMonth();
+    const year = date.getFullYear();
+
+    return `${day > 10 ? day : `0${day}`} ${monthName[month]} ${year}`;
+  };
 
   const itemTransform = (item) => {
-    const date = apiBase.getDay(item.dt);
+    const date = getDay(item.dt);
     const temp = Math.floor(item.temp.day);
     const icon = `http://openweathermap.org/img/wn/${item.weather[0].icon}@2x.png`;
 
@@ -26,7 +34,7 @@ export default function WeatherList({ forecastList, errorMes, isDay }) {
   };
 
   const changeItemNumNext = () => {
-    selectedIndex === forecastList.slice(selectedIndex, selectedIndex + 3).length + 1 ? setSelectedIndex(selectedIndex) : setSelectedIndex(selectedIndex + 1);
+    (selectedIndex === forecastList.slice(selectedIndex, selectedIndex + 3).length + 1) ? setSelectedIndex(selectedIndex) : setSelectedIndex(selectedIndex + 1);
   };
 
   const itemDay = forecastList.map((item) => <WeatherCard key={item.dt} item={item} isDay={isDay} />);
@@ -54,7 +62,7 @@ export default function WeatherList({ forecastList, errorMes, isDay }) {
 }
 
 WeatherList.propTypes = {
-  forecastList: PropTypes.array,
+  forecastList: PropTypes.arrayOf,
   errorMes: PropTypes.string,
   isDay: PropTypes.bool,
 };

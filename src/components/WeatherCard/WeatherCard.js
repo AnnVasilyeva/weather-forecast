@@ -1,5 +1,6 @@
 import React from 'react';
 import './weatherCard.css';
+import PropTypes from 'prop-types';
 
 export default function WeatherCard({ item, isDay }) {
   const { date, icon, temp } = item;
@@ -16,3 +17,13 @@ export default function WeatherCard({ item, isDay }) {
     </li>
   );
 }
+
+WeatherCard.propTypes = {
+  item: PropTypes.objectOf,
+  isDay: PropTypes.bool,
+};
+
+WeatherCard.defaultProps = {
+  item: {},
+  isDay: false,
+};
