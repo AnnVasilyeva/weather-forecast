@@ -30,11 +30,19 @@ export default function WeatherList({ forecastList, errorMes, isDay }) {
   };
 
   const changeItemNumPrev = () => {
-    selectedIndex === 0 ? setSelectedIndex(selectedIndex) : setSelectedIndex(selectedIndex - 1);
+    if (selectedIndex === 0) {
+      setSelectedIndex(selectedIndex);
+    } else {
+      setSelectedIndex(selectedIndex - 1);
+    }
   };
 
   const changeItemNumNext = () => {
-    (selectedIndex === forecastList.slice(selectedIndex, selectedIndex + 3).length + 1) ? setSelectedIndex(selectedIndex) : setSelectedIndex(selectedIndex + 1);
+    if (selectedIndex === forecastList.slice(selectedIndex, selectedIndex + 3).length + 1) {
+      setSelectedIndex(selectedIndex);
+    } else {
+      setSelectedIndex(selectedIndex + 1);
+    }
   };
 
   const itemDay = forecastList.map((item) => <WeatherCard key={item.dt} item={item} isDay={isDay} />);
