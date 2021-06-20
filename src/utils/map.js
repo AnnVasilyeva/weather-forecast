@@ -1,23 +1,30 @@
 // map<T, V>(callback: (element: T) => V, collection: T[]): V[]
 
-const animals = [
-  {name: 'Simba', kind: 'cat', owner: 'Ann'},
-  {name: 'Archie', kind: 'cat', owner: 'Jack'},
-  {name: 'Charlie', kind: 'dog', owner: 'Alex'},
-  {name: 'Buddy', kind: 'dog', owner: 'Mary'},
-]
-
 /**
- * @template {Object.<string, string>} T  - T must be a object
- * @template {string} V  - V must be a string
- * @param {Array<object>} collection: T[] - A parameter can be a Array<object>
- * @return {string[]} - This is the result
+ * @template T
+ * @template V
+ * @param {T[]} collection: T[] - A parameter must be a Array<object>
+ *  @param {Function} callback - A parameter must be a function
+ * @return {V[]} - This is the result
  */
 
-function getCatOwners (collection) {
-  return collection.reduce((accumulator, current) => current.kind === 'cat' ? [...accumulator, current.owner] : accumulator, []);
+function map(callback, collection) {
+  return collection.reduce((accumulator, current) => {
+    const mappedItem = callback(current);
+    return [...accumulator, mappedItem];
+  }, [])
+
 }
 
-const catOwners = getCatOwners(animals);
+/**
+ * @template W
+ * @template X
+ * @param {W} item - A parameter must be a number
+ * @return {X} - This is the result
+ */
 
-console.log(catOwners);
+function mapCallback (item) {
+  return item + 1;
+}
+
+console.log(map(mapCallback, [1, 2, 3, 4]));
